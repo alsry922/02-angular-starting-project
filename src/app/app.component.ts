@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {HeaderComponent} from "./header/header.component";
 import {UserComponent} from "./user/user.component";
 import {DUMMY_USERS} from "./dummy-users";
-import {TaskComponent} from "./tasks/task/task.component";
 import {TasksComponent} from "./tasks/tasks.component";
+import {NgFor, NgIf} from "@angular/common";
 
 // Angular의 Component 데코레이터는 클래스의 메타데이터를 제공한다.
 // 컴포넌트 데코레이터는 클래스를 Angular 컴포넌트로 변환하여 처리되도록 한다.
@@ -16,18 +16,22 @@ import {TasksComponent} from "./tasks/tasks.component";
   imports: [
     HeaderComponent,
     UserComponent,
-    TaskComponent,
-    TasksComponent
+    TasksComponent,
+    NgFor,
+    NgIf
   ],
   templateUrl: './app.component.html', // 상대경로 요구
   styleUrl: './app.component.css', // 상대경로 요구, 예전 Angular 버전에서는 styleUrls를 사용했고, 배열을 값으로 지정했음
 })
 export class AppComponent {
   users = DUMMY_USERS;
-  username = this.users[0].name;
+  selectedUserId?: string;
 
-  onSelectUser(userId: string) {
-    const index = this.users.findIndex(user => user.id === userId);
-    this.username = this.users[index].name;
+  get selectedUser() {
+    return this.users.find(user => user.id === this.selectedUserId);
+  }
+
+  onSelectUser(id: string) {
+    this.selectedUserId = id;
   }
 }

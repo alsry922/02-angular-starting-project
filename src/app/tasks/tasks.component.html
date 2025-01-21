@@ -2,20 +2,22 @@
 <!--  <app-new-task [userId]="userId" (close)="onCloseAddTask()" />-->
 <!--}-->
 
+<ng-container *ngIf="isAddingTask">
+  <app-new-task [userId]="userId" (close)="onCloseAddTask()"/>
+</ng-container>
+
 <section id="tasks">
   <header>
     <h2>{{ name }}'s Tasks</h2>
-<!--    <menu>-->
-<!--      <button (click)="onStartAddTask()">Add Task</button>-->
-<!--    </menu>-->
+    <menu>
+      <button (click)="onStartAddTask()">Add Task</button>
+    </menu>
   </header>
 
-<!--  <ul>-->
-<!--    @for (task of selectedUserTasks; track task.id) {-->
-<!--      <li>-->
-<!--        <app-task [task]="task" />-->
-<!--      </li>-->
-<!--    }-->
-<!--  </ul>-->
+  <ul>
+      <li *ngFor="let userTask of selectedUserTasks">
+        <app-task [task]="userTask" />
+      </li>
+  </ul>
 </section>
 

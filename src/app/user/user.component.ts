@@ -26,17 +26,19 @@ import {CardComponent} from "../shared/card/card.component";
 //     해당 시그널 값이 변경될 때 computed도 signal 값도 변경된다.
 //     즉, 이 시그널은 의존하는 시그널들이 변경될 때마다 자동으로 변경된다. 그리고 읽기 전용 시그널이다.
 export class UserComponent {
-  @Input({required: true}) id!: string;
-  @Input({required: true}) avatar!: string;
-  @Input({required: true}) name!: string;
+  // @Input({required: true}) id!: string;
+  // @Input({required: true}) avatar!: string;
+  // @Input({required: true}) name!: string;
+  @Input({required: true}) user!: User;
+  @Input({required: true}) selected!: boolean;
   @Output() select = new EventEmitter<string>(); // 관심있는 모든 부모 컴포넌트에 select 속성을 통해 값을 내보낼 수 있다.
 
 
   get imagePath() {
-    return 'assets/users/' + this.avatar;
+    return 'assets/users/' + this.user.avatar;
   }
 
   onSelectUser() {
-    this.select.emit(this.id);
+    this.select.emit(this.user.id);
   }
 }
